@@ -149,9 +149,9 @@ function optionChanged(selectValue){
 
         Plotly.restyle('bubble', "x", [labels]);
         Plotly.restyle('bubble', "y", [values]);
-        Plotly.restyle('bubble', "size", [values]);
+        Plotly.restyle('bubble', "marker.size", [values]);
         Plotly.restyle('bubble', "text", [hovertext]);
-        Plotly.restyle('bubble', "color", [labels]);
+        Plotly.restyle('bubble', "marker.color", [labels]);
         
         // Build metadata based on the filter
         var sampleMetadata = d3.select("#sample-metadata");
