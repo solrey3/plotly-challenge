@@ -124,6 +124,8 @@ function optionChanged(selectValue){
         var samples = data.samples;
 
         var filteredSample = samples.filter(sample => sample.id === selectValue);
+
+        var sortedFilteredSample = filteredSample.sort((a, b) => a.otu_ids - b.otu_ids);
         
         // Update values for barchart
 
@@ -132,6 +134,12 @@ function optionChanged(selectValue){
         var labels = filteredSample[0].otu_ids;
         // Use otu_labels as the hovertext for the chart.
         var hovertext = filteredSample[0].otu_labels;
+
+        var newValues = sortedFilteredSample[0].sample_values;
+        // Use otu_ids as the labels for the bar chart.
+        var newLabels = sortedFilteredSample[0].otu_ids;
+        // Use otu_labels as the hovertext for the chart.
+        var newHovertext = sortedFilteredSample[0].otu_labels;
 
         var top10Values = values.slice(0,10).reverse();
         var top10Labels = labels.slice(0,10).reverse();
@@ -147,11 +155,11 @@ function optionChanged(selectValue){
         // Update values for bubbleplot
         // Use restyle to update bubbleplot
 
-        Plotly.restyle('bubble', "x", [labels]);
-        Plotly.restyle('bubble', "y", [values]);
-        Plotly.restyle('bubble', "marker.size", [values]);
-        Plotly.restyle('bubble', "text", [hovertext]);
-        Plotly.restyle('bubble', "marker.color", [labels]);
+        Plotly.restyle('bubble', "x", [newLabels]);
+        Plotly.restyle('bubble', "y", [newValues]);
+        Plotly.restyle('bubble', "marker.size", [newValues]);
+        Plotly.restyle('bubble', "text", [newHovertext]);
+        Plotly.restyle('bubble', "marker.color", [newLabels]);
         
         // Build metadata based on the filter
         var sampleMetadata = d3.select("#sample-metadata");
